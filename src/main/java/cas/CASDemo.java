@@ -1,5 +1,6 @@
 package cas;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,5 +15,7 @@ public class CASDemo {
         System.out.println(atomicInteger.compareAndSet(5, 10) + "\t current data : " +atomicInteger.get());
         System.out.println(atomicInteger.compareAndSet(5,9) + "\t current data : " +atomicInteger.get());
         atomicInteger.getAndIncrement();
+        ArrayList a = new ArrayList();
+        a.add(1);
     }
 }
