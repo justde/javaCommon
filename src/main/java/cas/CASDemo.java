@@ -17,5 +17,6 @@ public class CASDemo {
         atomicInteger.getAndIncrement();
         ArrayList a = new ArrayList();
         a.add(1);
+        //test
     }
 }
