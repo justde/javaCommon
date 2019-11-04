@@ -26,6 +26,7 @@ public class ReSoreSeqDemo {
 
 class test {
     public static void main(String[] args) {
+
         ReSoreSeqDemo r = new ReSoreSeqDemo();
         new Thread(()->{
             r.method2();
