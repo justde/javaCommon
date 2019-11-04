@@ -69,6 +69,7 @@ class print{
     }
 }
 public class conditionDemo {
+
     public static void main(String[] args) {
         print print = new print();
         new Thread(()->{
