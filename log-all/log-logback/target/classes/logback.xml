@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  >
+
+    <!-- 输出样式 -->
+    <property name="pattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss,SSS} [%t] [%c-%line]- %m%n"/>
+    <property name="log.path" value="zjd/logback/"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="Main-Log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path:-logs}/main.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${log.path:-logs}/main-%d{yyyy-MM-dd}_%i.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+            <MaxFileSize>10MB</MaxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="Error-Log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path:-logs}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${log.path:-logs}/error-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+            <MaxFileSize>10MB</MaxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${pattern}</pattern>
+        </encoder>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="Warn-Log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path:-logs}/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <FileNamePattern>${log.path:-logs}/warn-%d{yyyy-MM-dd}_%i.log.zip</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+            <MaxFileSize>10MB</MaxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <!-- log filter -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 关闭类中某个级别的输出 OFF全部关闭 , INFO,DEBUG ...
+    <logger name="x.x.Constants">
+        <level value="OFF"/>
+    </logger>
+    -->
+    <logger name="ch.qos.logback" level="DEBUG" />
+    <logger name="org.springframework.boot" level="INFO" />
+    <logger name="org.springframework.test" level="INFO" />
+    <logger name="org.apache" level="ERROR"/>
+    <logger name="org.hibernate" level="ERROR" />
+    <logger name="org.hibernate.SQL" level="DEBUG" />
+    <logger name="io.netty" level="INFO" />
+    <logger name="io.lettuce" level="INFO" />
+
+    <!-- log output level -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="Main-Log"/>
+        <appender-ref ref="Warn-Log"/>
+        <appender-ref ref="Error-Log"/>
+    </root>
+
+</configuration>
