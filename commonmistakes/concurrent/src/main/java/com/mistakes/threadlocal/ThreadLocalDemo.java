@@ -1,4 +1,4 @@
-package com.mistakes.concurrent.threadlocal;
+package com.mistakes.threadlocal;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;

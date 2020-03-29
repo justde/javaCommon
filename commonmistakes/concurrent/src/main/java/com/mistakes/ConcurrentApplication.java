@@ -1,4 +1,4 @@
-package com.mistakes.concurrent;
+package com.mistakes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

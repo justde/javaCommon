@@ -1,4 +1,4 @@
-package com.mistakes.concurrent;
+package com.mistakes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
