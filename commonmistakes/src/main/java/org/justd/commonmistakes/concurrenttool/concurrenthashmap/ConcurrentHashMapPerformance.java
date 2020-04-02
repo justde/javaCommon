@@ -1,6 +1,5 @@
-package com.mistakes.concurrenthashmap;
+package org.justd.commonmistakes.concurrenttool.concurrenthashmap;
 
-import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,7 +52,7 @@ public class ConcurrentHashMapPerformance {
     private Map<String, Long> goodUse() throws InterruptedException {
         ConcurrentHashMap<String, LongAdder> map = new ConcurrentHashMap<>(THREAD_COUNT);
         ForkJoinPool forkJoinPool = new ForkJoinPool(THREAD_COUNT);
-        forkJoinPool.execute(()->IntStream.rangeClosed(1, LOOP_COUNT).parallel().forEach(i ->{
+        forkJoinPool.execute(() -> IntStream.rangeClosed(1, LOOP_COUNT).parallel().forEach(i -> {
             String key = "key" + ThreadLocalRandom.current().nextInt(TIME_COUNT);
             //如果key不存在则执行 k->new LongAdder()，然后在执行increment；
             //如果key存在，直接执行后面的increment；
@@ -65,7 +64,7 @@ public class ConcurrentHashMapPerformance {
         return map.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        e ->e.getValue().longValue()
+                        e -> e.getValue().longValue()
                 ));
     }
 

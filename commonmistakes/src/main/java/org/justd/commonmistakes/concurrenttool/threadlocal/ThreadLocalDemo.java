@@ -1,4 +1,4 @@
-package com.mistakes.threadlocal;
+package org.justd.commonmistakes.concurrenttool.threadlocal;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class ThreadLocalDemo {
     private static final ThreadLocal<Integer> currentUser = ThreadLocal.withInitial(() -> null);
 
     @GetMapping("wrong")
-    public JSONObject wrong(@RequestParam("userId") Integer userId){
+    public JSONObject wrong(@RequestParam("userId") Integer userId) {
         String before = Thread.currentThread().getName() + " : " + currentUser.get();
         currentUser.set(userId);
         String after = Thread.currentThread().getName() + " : " + currentUser.get();
@@ -29,17 +29,17 @@ public class ThreadLocalDemo {
     }
 
     @GetMapping("right")
-    public JSONObject right(@RequestParam("userId") Integer userId){
+    public JSONObject right(@RequestParam("userId") Integer userId) {
         String before = Thread.currentThread().getName() + " : " + currentUser.get();
         currentUser.set(userId);
-        try{
+        try {
 
             String after = Thread.currentThread().getName() + " : " + currentUser.get();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("before", before);
             jsonObject.put("after", after);
             return jsonObject;
-        }finally {
+        } finally {
             currentUser.remove();
         }
     }

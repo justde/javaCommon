@@ -1,4 +1,4 @@
-package com.mistakes.concurrenthashmap;
+package org.justd.commonmistakes.concurrenttool.concurrenthashmap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +43,7 @@ public class ConcurrentHashMapMisuse {
         ConcurrentHashMap<String, Long> data = getData(TIME_COUNT - 100);
         log.info("init size:{}", data.size());
         ForkJoinPool forkJoinPool = new ForkJoinPool(THREAD_COUNT);
-        forkJoinPool.execute(()-> IntStream.rangeClosed(1, 10).parallel().forEach( i->{
+        forkJoinPool.execute(() -> IntStream.rangeClosed(1, 10).parallel().forEach(i -> {
             int gap = TIME_COUNT - data.size();
             log.info("gap size:{}", gap);
             data.putAll(getData(gap));
@@ -61,8 +61,8 @@ public class ConcurrentHashMapMisuse {
         ConcurrentHashMap<String, Long> data = getData(TIME_COUNT - 100);
         log.info("init size:{}", data.size());
         ForkJoinPool forkJoinPool = new ForkJoinPool(THREAD_COUNT);
-        forkJoinPool.execute(()-> IntStream.rangeClosed(1, 10).parallel().forEach( i->{
-            synchronized (data){
+        forkJoinPool.execute(() -> IntStream.rangeClosed(1, 10).parallel().forEach(i -> {
+            synchronized (data) {
                 int gap = TIME_COUNT - data.size();
                 log.info("gap size:{}", gap);
                 data.putAll(getData(gap));
